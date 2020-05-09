@@ -13,3 +13,16 @@ services:
       - "3306:3306"
     volumes:
       - ./sql/create-tables.sql:/docker-entrypoint-initdb.d/create-tables.sql
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_VHOST: "/"
+    volumes:
+      - ./enabled_plugins:/etc/rabbitmq/enabled_plugins
+    ports:
+      - 5672:5672
+      - 15672:15672
